@@ -4,6 +4,9 @@ import { CronOptions } from './CronOptions';
 import { Days, MonthWeeks, Months } from './enums';
 import Utils from './Utils';
 
+import * as moment_tz_ from 'moment-timezone';
+const moment = moment_tz_;
+
 @Component({
   selector: 'hyt-cron-editor',
   templateUrl: './cron-editor.component.html',
@@ -119,6 +122,7 @@ export class CronEditorComponent implements OnInit, OnChanges {
             break;
           case 'everyWeekDay':
             // tslint:disable-next-line:max-line-length
+
             this.cron = `${this.state.daily.everyWeekDay.minutes} ${this.hourToCron(this.state.daily.everyWeekDay.hours, this.state.daily.everyWeekDay.hourType)} ? * MON-FRI`;
 
             if (!this.options.removeSeconds) {
@@ -128,6 +132,7 @@ export class CronEditorComponent implements OnInit, OnChanges {
             if (!this.options.removeYears) {
               this.cron = `${this.cron} *`;
             }
+
             break;
           default:
             throw new Error('Invalid cron daily subtab selection');
@@ -227,6 +232,12 @@ export class CronEditorComponent implements OnInit, OnChanges {
   }
 
   private hourToCron(hour: number, hourType: string) {
+
+    //!TEST
+    console.log(
+      moment.tz.guess()
+    );
+
     if (this.options.use24HourTime) {
       return hour;
     } else {
