@@ -4,9 +4,6 @@ import { CronOptions } from './CronOptions';
 import { Days, MonthWeeks, Months } from './enums';
 import Utils from './Utils';
 
-import * as moment_tz_ from 'moment-timezone';
-const moment = moment_tz_;
-
 @Component({
   selector: 'hyt-cron-editor',
   templateUrl: './cron-editor.component.html',
@@ -232,12 +229,6 @@ export class CronEditorComponent implements OnInit, OnChanges {
   }
 
   private hourToCron(hour: number, hourType: string) {
-
-    //!TEST
-    console.log(
-      moment.tz.guess()
-    );
-
     if (this.options.use24HourTime) {
       return hour;
     } else {

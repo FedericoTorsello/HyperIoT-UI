@@ -3,14 +3,16 @@ import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 
-import { Option, SelectOption } from 'components';
+import { Option, SelectOption, CronOptions } from 'components';
 
 import { Algorithm, AlgorithmConfig, AlgorithmsService, HProject, HProjectAlgorithm, HProjectAlgorithmConfig, HprojectalgorithmsService } from 'core';
 
 import { ProjectFormEntity, LoadingStatusEnum } from '../project-form-entity';
-import { CronOptions } from 'components';
 import { SummaryListItem } from '../../project-detail/generic-summary-list/generic-summary-list.component';
 import { StatisticInputDefinitionComponent } from './statistic-input-definition/statistic-input-definition.component';
+
+import * as moment_tz_ from 'moment-timezone';
+const moment = moment_tz_;
 
 @Component({
   selector: "hyt-project-statistics-form",
@@ -332,6 +334,7 @@ export class ProjectStatisticsFormComponent
 
     hProjectAlgorithm.config = JSON.stringify(this.config);
     hProjectAlgorithm.cronExpression = this.cronExpression;
+    hProjectAlgorithm.timeZoneId = moment.tz.guess();
     hProjectAlgorithm.name = this.form.get("hprojectalgorithm-name").value;
     hProjectAlgorithm.active = this.form.get("active").value;
 
